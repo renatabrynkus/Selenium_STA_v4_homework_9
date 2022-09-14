@@ -7,16 +7,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
+
 public class TooltipTests extends BaseTest {
 
     @Test
     void printTooltipMgs() {
         driver.get(DataProvider.TOOLTIP_URL);
-
-        WebElement element = driver.findElement(By.cssSelector("#age"));
         Actions action = new Actions(driver);
-        action.moveToElement(element).perform();
+        List<WebElement> tooltipsOnText = driver.findElements(By.cssSelector("p a"));
+        tooltipsOnText.add(driver.findElement(By.cssSelector("#age")));
 
-        System.out.println(driver.findElement(By.cssSelector(".ui-tooltip-content")).getText());
+        for (WebElement element : tooltipsOnText ) {
+            System.out.println(element.getAttribute("title"));
+        }
     }
 }

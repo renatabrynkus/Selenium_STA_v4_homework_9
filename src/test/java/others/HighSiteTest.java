@@ -12,8 +12,18 @@ import java.io.IOException;
 public class HighSiteTest extends BaseTest {
 
     @Test
-    void shouldScrollUntilButtonVisible() throws IOException {
+    void shouldScrollToSubmitButtonAndDoScreenshot() throws IOException {
         driver.get(DataProvider.HIGH_SITE_URL);
+        scrollUntilButtonVisible();
+        takeScreenShot();
+    }
+
+    private void takeScreenShot() throws IOException {
+        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screenshotFile, new File(".//src/main/resources/screenshots/screen.png"));
+    }
+
+    private void scrollUntilButtonVisible() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Dimension screenSize = driver.manage().window().getSize();
         int screenHeight = screenSize.getHeight();
@@ -25,11 +35,5 @@ public class HighSiteTest extends BaseTest {
                 js.executeScript("window.scrollBy(0, 30)", "");
             }
         }
-        takeScreenShot();
-    }
-
-    private void takeScreenShot() throws IOException {
-        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(screenshotFile, new File(".//src/main/resources/screenshots/screen.png"));
     }
 }
