@@ -13,8 +13,9 @@ import org.openqa.selenium.interactions.Actions;
 
 public class DraggableTests extends BaseTest {
 
+    //niegotowe, miałam problem z przesunięciem z prawego gónego rogu w prawy dolny
     @Test
-    void dragSquare() throws InterruptedException {
+    void dragSquare() {
         driver.get(DataProvider.DRAGGABLE_URL);
         Actions actions = new Actions(driver);
 
@@ -35,7 +36,6 @@ public class DraggableTests extends BaseTest {
 
         actions.clickAndHold(dragMeAround).perform();
         actions.moveByOffset(screenWidth - rightUpperCornerX, -leftUpperCornerY).perform();
-        Thread.sleep(5000);
 
         Point position2 = dragMeAround.getLocation();
         int leftUpperCornerX2 = position2.getX();
@@ -44,7 +44,6 @@ public class DraggableTests extends BaseTest {
 
         //tutaj gubiło mi się 9 pikseli; jeśli w moveByOffset X był ustawiony na 0 to w position3 x = 892, a nie 901 jak w poprzednim
         actions.moveByOffset(9, screenHeight - 2 * dragMeAroundHeight).perform();
-        Thread.sleep(5000);
 
         Point position3 = dragMeAround.getLocation();
         int leftUpperCornerX3 = position3.getX();
@@ -64,8 +63,5 @@ public class DraggableTests extends BaseTest {
         int leftUpperCornerX4 = position4.getX();
         int leftUpperCornerY4 = position4.getY();
         System.out.println(leftUpperCornerX4 + " " + leftUpperCornerY4);
-
-
-        Thread.sleep(5000);
     }
 }
